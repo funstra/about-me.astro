@@ -1,0 +1,12 @@
+---
+import Layout from '$layout/Base.astro'
+import Transition from 'src/components/Transition.astro';
+---
+
+<Layout class="" title="blabla">
+    <Transition>
+        <article class="prose max-w-none bg-blue-500">
+            <slot />
+        </article>
+    </Transition>
+</Layout>

@@ -1,0 +1,68 @@
+---
+import "../styles/global.scss";
+import Nav from "$components/Nav.astro";
+
+
+
+export interface Props {
+	title: string;
+	class?: string
+	pageOrder?: number
+}
+
+const { title, class: _class, pageOrder } = Astro.props as Props;
+const navLinks = [
+	{ href: "/", name: "home" },
+	{ href: "/writing", name: "writing" },
+	{ href: "/work", name: "work" },
+]
+---
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width">
+	<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+	<title>{title}</title>
+</head>
+
+<body class="bg-gray-secondary sm:p-1" data-page-order={ pageOrder !==undefined ? pageOrder : -1 }>
+	<Nav links={navLinks}></Nav>
+	<main class={`relative ${_class} p-2 sm:rounded-sm`}>
+		<slot />
+	</main>
+</body>
+
+</html>
+
+<script>
+	import '../rooter.ts'
+</script>
+
+<style lang="scss">
+	body {
+		display: grid;
+		/* grid-template-rows: 1fr auto; */
+		overflow: hidden;
+		// box-shadow: inset 0 0 26px white;
+	}
+
+	main {
+		grid-row: 1/3;
+		grid-column: 1/3;
+		overflow: scroll;
+		overflow-x: hidden;
+		background-color: hsl(120 100% 25% / 0.05);
+
+		@screen sm {
+			// padding-left: 4.5rem;
+			background-color: hsl(var(--col-blk) / 0.01);
+			box-shadow: 0 0 2px 0 inset hsl(var(--col-wht) / 1),
+				0 0 4px 1px inset hsl(var(--col-primary) / 0.1),
+				0 0 8px 3px inset hsl(var(--col-blk) / 0.05);
+			// box-shadow: 0 0 8px hsl(0 0% 50% / 0.2), inset 0 0 4px hsl(0 0% 100% / 0.5), inset 0 0 10px -4px hsl(0 0% 0% / 0.5);
+		}
+	}
+</style>
